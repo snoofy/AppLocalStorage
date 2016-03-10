@@ -24,6 +24,8 @@ SOFTWARE.
 
 */
 
+// Version 0.2.0
+
 var AppLocalStorage = function(namespace) {
   // namespace have to be a string, false or undefined
   if ((typeof namespace === 'undefined') ||
@@ -48,7 +50,11 @@ AppLocalStorage.prototype.setItem = function(name, value) {
 };
 AppLocalStorage.prototype.getItem = function(name) {
   var x = this._storage.getItem(this._namespacePrefix+name);
-  return $.parseJSON(x);
+  try {
+    return $.parseJSON(x);
+  } catch(e) {
+  }
+  return undefined;
 };
 AppLocalStorage.prototype.removeItem = function(name) {
   this._storage.removeItem(this._namespacePrefix+name);
